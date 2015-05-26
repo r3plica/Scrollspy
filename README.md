@@ -15,7 +15,8 @@ jQuery
 
 ## Demo
 
-I have created a demo here at jsfiddle
+I have created a demo which you can find here:
+http://codepen.io/r3plica/pen/NqbarV
 
 ## Installation
 
