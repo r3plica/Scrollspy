@@ -45,7 +45,7 @@ Currently there are only a few options:
 This allows you to define your own active class that gets added to the **li** element of the menu.
 *default: 'active'*
 
-### animated
+### animate
 
 This tells the plugin whether it should animate the scroll when a link in your menu is click or not.
 *default: false*
