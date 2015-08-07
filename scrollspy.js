@@ -15,7 +15,7 @@
             var defaults = {
                 namespace: 'scrollspy',
                 activeClass: 'active',
-                animated: false,
+                animate: false,
                 offset: 0,
                 container: window
             };
