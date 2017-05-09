@@ -18,7 +18,8 @@
                 animate: false,
                 duration: 1000,
                 offset: 0,
-                container: window
+                container: window,
+                replaceState: false
             };
 
             // Add any overriden options to a new object
@@ -95,6 +96,9 @@
                 }
             };
 
+            // Store last fired scroll event
+            var scrollArea = '';
+
             // For each scrollspy instance
             return this.each(function () {
 
@@ -141,12 +145,14 @@
                     });
                 }
 
+                // Set links
+                resetClasses(links);
+
                 // Get our elements
                 var elements = findElements(links);
-                
-                // Add a listener to the window
-                container.bind('scroll.' + options.namespace, function () {
-                    
+
+                var trackChanged = function() {
+
                     // Get the position and store in an object
                     var position = {
                         top: add($(this).scrollTop(), Math.abs(options.offset)),
@@ -162,23 +168,31 @@
                         // Get our current item
                         var current = elements[i];
 
-                        // If we are within the boundries of our element
+                        // If we are within the boundaries of our element
                         if (position.top >= current.top && position.top < current.bottom) {
-                            
+
                             // get our element
                             var hash = current.hash;
 
                             // Get the link
                             link = findLink(links, hash);
-                            
+
                             // If we have a link
                             if (link) {
-
                                 // If we have an onChange function
-                                if (options.onChange) {
+                                if (options.onChange && (scrollArea !== hash)) {
 
-                                    // Fire our onChange function 
+                                    // Fire our onChange function
                                     options.onChange(current.element, $(element), position);
+
+                                    // set scrollArea
+                                    scrollArea = hash;
+
+                                }
+
+                                // Update url
+                                if (options.replaceState) {
+                                    history.replaceState( {}, '', '/' + hash )
                                 }
 
                                 // Reset the classes on all other link
@@ -187,19 +201,40 @@
                                 // Add our active link to our parent
                                 link.parent().addClass(options.activeClass);
 
-                                // break our loop 
+                                // break our loop
                                 break;
                             }
                         }
                     }
 
                     // If we don't have a link and we have a exit function
-                    if (!link && options.onExit) {
-                        
-                        // Fire our onChange function 
+                    if (!link && (scrollArea !== 'exit') && options.onExit) {
+
+                        // Fire our onChange function
                         options.onExit($(element), position);
+
+                        // Reset the classes on all other link
+                        resetClasses(links);
+
+                        // set scrollArea
+                        scrollArea = 'exit';
+
+                        // Update url
+                        if (options.replaceState) {
+                            history.replaceState( {}, '', '/' )
+                        }
+
                     }
+                }
+
+                // Add a listener to the window
+                container.bind('scroll.' + options.namespace, function () {
+                    trackChanged();
                 });
+
+                $( document ).ready(function (e) {
+                    trackChanged();
+                })
 
             });
         }
