@@ -17,6 +17,7 @@
                 activeClass: 'active',
                 animate: false,
                 offset: 0,
+                scrollOffset: 0,
                 container: window
             };
 
@@ -55,7 +56,7 @@
 
                         // Add to our array
                         elements.push({ element: element, hash: hash, top: top, bottom: bottom });
-                    }                    
+                    }
                 }
 
                 // Return our elements
@@ -112,7 +113,7 @@
 
                     // Bind the click event
                     $(link).on("click", function (e) {
-                        
+
                         // Get our target
                         var target = $(this).attr("href"),
                             $target = $(target);
@@ -121,8 +122,8 @@
                         if ($target.length > 0) {
 
                             // Get it's scroll position
-                            var top = add($target.offset().top, options.offset);
-                            
+                            var top = add($target.offset().top, options.scrollOffset);
+
                             // If animation is on
                             if (options.animate) {
 
@@ -133,7 +134,7 @@
                                 // Scroll to our position
                                 window.scrollTo(0, top);
                             }
-                            
+
                             // Prevent our link
                             e.preventDefault();
                         }
@@ -142,10 +143,10 @@
 
                 // Get our elements
                 var elements = findElements(links);
-                
+
                 // Add a listener to the window
                 container.bind('scroll.' + options.namespace, function () {
-                    
+
                     // Get the position and store in an object
                     var position = {
                         top: add($(this).scrollTop(), Math.abs(options.offset)),
@@ -163,20 +164,20 @@
 
                         // If we are within the boundries of our element
                         if (position.top >= current.top && position.top < current.bottom) {
-                            
+
                             // get our element
                             var hash = current.hash;
 
                             // Get the link
                             link = findLink(links, hash);
-                            
+
                             // If we have a link
                             if (link) {
 
                                 // If we have an onChange function
                                 if (options.onChange) {
 
-                                    // Fire our onChange function 
+                                    // Fire our onChange function
                                     options.onChange(current.element, $(element), position);
                                 }
 
@@ -186,7 +187,7 @@
                                 // Add our active link to our parent
                                 link.parent().addClass(options.activeClass);
 
-                                // break our loop 
+                                // break our loop
                                 break;
                             }
                         }
@@ -194,8 +195,8 @@
 
                     // If we don't have a link and we have a exit function
                     if (!link && options.onExit) {
-                        
-                        // Fire our onChange function 
+
+                        // Fire our onChange function
                         options.onExit($(element), position);
                     }
                 });
