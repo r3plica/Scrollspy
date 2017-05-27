@@ -52,7 +52,12 @@ This tells the plugin whether it should animate the scroll when a link in your m
 
 ### offset
 
-This tells the plugin if there is any need to include an offset.
+This tells the plugin if there is any need to include an offset. This will change when the activeClass is added to the **li** element.
+*default: 0*
+
+### scrollOffset
+
+This tells the plugin if there is any need for an offset on scroll after an **li** is clicked. This controls where, in regards to the element, the page scrolls to.
 *default: 0*
 
 ### onChange
