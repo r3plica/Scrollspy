@@ -50,6 +50,11 @@ This allows you to define your own active class that gets added to the **li** el
 This tells the plugin whether it should animate the scroll when a link in your menu is click or not.
 *default: false*
 
+### duration
+
+This is the duration of the animation in milliseconds.
+*default: 1000*
+
 ### offset
 
 This tells the plugin if there is any need to include an offset.
