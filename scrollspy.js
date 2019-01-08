@@ -130,7 +130,7 @@
                         if ($target.length > 0) {
 
                             // Get it's scroll position
-                            var top = subs($target.offset().top, options.offset!=0?options.offset/2:0);
+                            var top = subs($target.offset().top, options.offset)+10;
                             
                             // If animation is on
                             if (options.animate) {
