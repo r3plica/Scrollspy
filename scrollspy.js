@@ -29,6 +29,10 @@
             var add = function (ex1, ex2) {
                 return parseInt(ex1, 10) + parseInt(ex2, 10);
             }
+            // Subs two numbers together
+            var subs = function (ex1, ex2) {
+                return parseInt(ex1, 10) - parseInt(ex2, 10);
+            }
 
             // Find our elements
             var findElements = function (links) {
@@ -126,7 +130,7 @@
                         if ($target.length > 0) {
 
                             // Get it's scroll position
-                            var top = add($target.offset().top, options.offset);
+                            var top = subs($target.offset().top, options.offset!=0?options.offset/2:0);
                             
                             // If animation is on
                             if (options.animate) {
@@ -167,6 +171,8 @@
 
                         // Get our current item
                         var current = elements[i];
+                        console.log(current);
+                        
 
                         // If we are within the boundaries of our element
                         if (position.top >= current.top && position.top < current.bottom) {
